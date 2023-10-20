@@ -38,6 +38,8 @@ dependencies:
   riverpod: ^2.0.0
   hooks_riverpod: ^2.0.0
   uuid: ^3.0.4
+  http:
+  go_router:
 
 dev_dependencies:
   flutter_test:
