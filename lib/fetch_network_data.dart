@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 class Post {
@@ -67,6 +67,13 @@ class FetchNetworkData extends ConsumerWidget {
             itemBuilder: (context, index) {
               final post = data[index];
               return ListTile(
+                onTap: () {
+                  // show snackbar
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(post.title)),
+                  );
+                },
+                leading: const Icon(Icons.star),
                 title: Text(post.title),
                 subtitle: Text(post.body),
               );
@@ -74,7 +81,9 @@ class FetchNetworkData extends ConsumerWidget {
           );
         },
         loading: () {
-          return const CircularProgressIndicator();
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
         error: (error, stackTrace) {
           return Text('Error: $error');

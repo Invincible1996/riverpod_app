@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -20,11 +21,30 @@ class _HomePageState extends State<HomePage> {
       body: ListView(
         children: [
           ListTile(
-              title: const Text('Fetch Network Data'),
-              onTap: () {
-                context.push('/fetch');
-              }),
+            title: const Text('Fetch Network Data'),
+            onTap: () {
+              context.push('/fetch');
+            },
+          ),
+          const Divider(),
+          ListTile(
+            title: const Text('Todo List Page'),
+            onTap: () {
+              context.push('/todo');
+            },
+          ),
+          const Divider(),
+          ListTile(
+            title: const Text('Login Page'),
+            onTap: () {
+              context.push('/login');
+            },
+          )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
       ),
     );
   }

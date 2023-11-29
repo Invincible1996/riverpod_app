@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
 class ToDoList extends ConsumerWidget {
-  ToDoList({super.key});
-
-  final formKey = GlobalKey<FormState>();
+  const ToDoList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,7 +37,7 @@ class ToDoList extends ConsumerWidget {
             builder: (context) => AlertDialog(
               title: const Text('New Todo'),
               content: Form(
-                key: formKey,
+                key: ref.watch(todoListProvider.notifier).formKey,
                 child: TextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -64,7 +62,11 @@ class ToDoList extends ConsumerWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    if (!formKey.currentState!.validate()) {
+                    if (ref
+                        .read(todoListProvider.notifier)
+                        .formKey
+                        .currentState!
+                        .validate()) {
                       return;
                     }
                     Navigator.of(context).pop();
@@ -119,7 +121,7 @@ final todoListProvider =
 
 class TodoListNotifier extends StateNotifier<List<Todo>> {
   var textController = TextEditingController();
-
+  final formKey = GlobalKey<FormState>();
   TodoListNotifier() : super([]);
 
   addTodo(Todo todo) {
